@@ -66,35 +66,43 @@ test("displays the correct links", () => {
 
 // Newsletter Form - Initial State
 test("the form includes text inputs for name and email address", () => {
-  render(<App/ >);
+  render(<App />);
 
   expect(screen.getByLabelText(/enter your name/i)).toBeInTheDocument();
-  expect(screen.getByLabelText(/enter your email address/i)).toBeInTheDocument();
-})
+  expect(
+    screen.getByLabelText(/enter your email address/i)
+  ).toBeInTheDocument();
+});
 
 test("the form includes three checkboxes to select areas of interest", () => {
-  render(<App/ >);
+  render(<App />);
 
-  expect(screen.getAllByRole('checkbox').length).toBe(3);
-})
+  expect(screen.getAllByRole("checkbox").length).toBe(3);
+});
 
 test("the checkboxes are initially unchecked", () => {
-  render(<App/ >);
+  render(<App />);
 
-  expect(screen.getByRole("checkbox", { name: /interest 1/i })).not.toBeChecked();
-  expect(screen.getByRole("checkbox", { name: /interest 2/i })).not.toBeChecked();
-  expect(screen.getByRole("checkbox", { name: /interest 3/i })).not.toBeChecked();
-})
+  expect(
+    screen.getByRole("checkbox", { name: /interest 1/i })
+  ).not.toBeChecked();
+  expect(
+    screen.getByRole("checkbox", { name: /interest 2/i })
+  ).not.toBeChecked();
+  expect(
+    screen.getByRole("checkbox", { name: /interest 3/i })
+  ).not.toBeChecked();
+});
 
 test("the form includes a Submit button", () => {
-  render(<App/ >);
+  render(<App />);
 
-  expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
-})
+  expect(screen.getByRole("button", { name: /submit/i })).toBeInTheDocument();
+});
 
 // Newsletter Form - Adding Responses
 test("the page shows information the user types into the name and email address form fields", () => {
-  render(<App/ >);
+  render(<App />);
 
   const fullName = screen.getByLabelText(/enter your name/i);
   const emailAddress = screen.getByLabelText(/enter your email address/i);
@@ -104,7 +112,7 @@ test("the page shows information the user types into the name and email address 
 
   expect(fullName).toHaveValue("Fname Lname");
   expect(emailAddress).toHaveValue("fnamelname@email.com");
-})
+});
 
 test("checked status of checkboxes changes when user clicks them", () => {
   render(<App />);
@@ -123,16 +131,23 @@ test("checked status of checkboxes changes when user clicks them", () => {
 });
 
 test("a message is displayed when the user clicks the Submit button", () => {
-  render(<App/ >);
+  render(<App />);
 
   userEvent.type(screen.getByLabelText(/enter your name/i), "Fname Lname");
-  userEvent.type(screen.getByLabelText(/enter your email address/i), "fnamelname@email.com");
+  userEvent.type(
+    screen.getByLabelText(/enter your email address/i),
+    "fnamelname@email.com"
+  );
   userEvent.click(screen.getByRole("checkbox", { name: /interest 1/i }));
   userEvent.click(screen.getByRole("checkbox", { name: /interest 3/i }));
-  userEvent.click(screen.getByRole('button', { name: /submit/i }));
+  userEvent.click(screen.getByRole("button", { name: /submit/i }));
 
-  expect(screen.getByText("Thanks Fname Lname! You are signed up for these newsletters:")).toBeInTheDocument();
-  expect(screen.getAllByRole('listitem').length).toBe(2);
-  expect(screen.getByText('Interest 1')).toBeInTheDocument();
-  expect(screen.getByText('Interest 3')).toBeInTheDocument();
-})
+  expect(
+    screen.getByText(
+      "Thanks Fname Lname! You are signed up for these newsletters:"
+    )
+  ).toBeInTheDocument();
+  expect(screen.getAllByRole("listitem").length).toBe(2);
+  expect(screen.getByText("Interest 1")).toBeInTheDocument();
+  expect(screen.getByText("Interest 3")).toBeInTheDocument();
+});
